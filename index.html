@@ -114,7 +114,7 @@ body {
         <img id="meme" alt="Sample Image" class="top-image">
         <div class="button-container">
             <button role="button"  class="button-54" onclick="nextB()"  >next</button>
-            <button role="button"  class="button-54" id='sB'>share</button>
+            <button role="button"  class="button-54" id='sB' onclick="share()">share</button>
         </div>
     </div>
 
@@ -238,21 +238,10 @@ fetch(linkArray[rNum],{
 const shareButton = document.getElementById('sB');
 const imageToShare = document.getElementById('meme');
 
-shareButton.addEventListener('click', async () => {
-  if (navigator.share) {
-    try {
-      const blob = await fetch(imageToShare.src).then(res => res.blob());
-      await navigator.share({
-        files: [new File([blob], 'image.jpg', { type: blob.type })],
-        title: '',
-      });
-    } catch (err) {
-      console.error('Error sharing image:', err);
-    }
-  } else {
-    console.error('Web Share API not supported.');
-  }
-});
+function share(){
+  let wUrl= "whatsapp://send?text="+encodeURIComponent(imageToShare.src);
+  window.location.href = wUrl;
+}
 
 
 
